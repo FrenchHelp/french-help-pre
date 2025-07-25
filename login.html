@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>French Help For School | Home</title>
+    <!--CSS reset-->
+    <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--favicons — credit to favicon.io-->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicons/site.webmanifest">
+
+</head>
+
+<body>
+    <div id="nav-placeholder"></div>
+    <div class="content-login">
+        <div class="login-container" id="loginContainer">
+            <!-- Content will be injected by JS -->
+        </div>
+        <div id="footer-placeholder"></div>
+        <script src="assets/jquery.js"></script>
+        <script src="assets/script.js"></script>
+        <script>
+            const CORRECT_PASSWORD = "Frenchp3PdFBQHSW7jDhGvWlzKDEUZjQq0uIL3";
+            const LOGIN_KEY = "french_logged_in";
+
+            function showLoginForm() {
+                document.getElementById("loginContainer").innerHTML = `
+                <h1>Log In</h1>
+                <form id="loginForm" autocomplete="off">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" required>
+                    <button type="submit">Log In</button>
+                    <div class="error" id="errorMsg"></div>
+                </form>
+            `;
+                document.getElementById("loginForm").addEventListener("submit", function (e) {
+                    e.preventDefault();
+                    const pw = document.getElementById("password").value;
+                    if (pw === CORRECT_PASSWORD) {
+                        localStorage.setItem(LOGIN_KEY, "Nf9qNFv9wLTHdvWrvgI0Sb89Tyysbj6r");
+                        window.location.href = "dashboard";
+                    } else {
+                        document.getElementById("errorMsg").textContent = "Incorrect password. Please try again.";
+                    }
+                });
+            }
+
+            function showLoggedInButton() {
+                document.getElementById("loginContainer").innerHTML = `
+                <h1>Already Logged In</h1>
+                <button id="goToUser">Go to Dashboard</button>
+            `;
+                document.getElementById("goToUser").addEventListener("click", function () {
+                    window.location.href = "dashboard";
+                });
+            }
+
+            if (localStorage.getItem(LOGIN_KEY) === "Nf9qNFv9wLTHdvWrvgI0Sb89Tyysbj6r") {
+                showLoggedInButton();
+            } else {
+                showLoginForm();
+            }
+        </script>
+</body>
+
+</html>

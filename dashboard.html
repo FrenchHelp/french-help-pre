@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>French Help For School | Dashboard</title>
+    <!--CSS reset-->
+    <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--favicons — credit to favicon.io-->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicons/site.webmanifest">
+</head>
+
+<body>  
+    <div class="content-dashboard">
+        <div id="logged_in">
+            <div id="nav-placeholder"></div>
+            <div class="main-content">
+
+                <div class="dashboard-header">
+                    <h1>Welcome to Your Dashboard</h1>
+                    <h2>French Help For School</h2>
+                </div>
+
+                <div class="dashboard-links">
+                    <div class="dashboard-card">
+                        <h3>Settings</h3>
+                        <p>Manage your account, preferences, and notifications.</p>
+                        <button onclick="location.href='settings'">Go to Settings</button>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Games</h3>
+                        <p>Practice French with fun and interactive games.</p>
+                        <button onclick="location.href='games'">Play Games</button>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Learning Resources</h3>
+                        <p>Access lessons, quizzes, and more to boost your French skills.</p>
+                        <button onclick="location.href='learn'">Start Learning</button>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>External Resources</h3>
+                        <ul>
+                            <li><a href="https://www.duolingo.com/course/fr/en/Learn-French" target="_blank">Duolingo
+                                    French</a></li>
+                            <li><a href="https://www.memrise.com/courses/english/french/" target="_blank">Memrise
+                                    French</a>
+                            </li>
+                            <li><a href="https://www.bbc.co.uk/bitesize/subjects/z39d7ty" target="_blank">BBC Bitesize
+                                    French</a></li>
+                            <li><a href="https://www.lawlessfrench.com/" target="_blank">Lawless French</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="footer-placeholder"></div>
+        </div>
+        <div id="not-logged-in"></div>
+        <script src="assets/jquery.js"></script>
+        <script src="assets/script.js"></script>
+        <script>
+            if (localStorage.getItem('french_logged_in') === 'Nf9qNFv9wLTHdvWrvgI0Sb89Tyysbj6r') {
+                document.getElementById('logged_in').style.display = '';
+                document.getElementById('not-logged-in').style.display = 'none';
+            } else {
+                document.getElementById('logged_in').style.display = 'none';
+                document.getElementById('not-logged-in').style.display = '';
+                document.body.style.overflow = 'hidden';
+            }
+        </script>
+</body>
+
+</html>

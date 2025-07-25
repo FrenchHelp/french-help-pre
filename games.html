@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>French Help For School | Dashboard</title>
+    <!--CSS reset-->
+    <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--favicons — credit to favicon.io-->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicons/site.webmanifest">
+</head>
+
+<body>
+    <div class="content-games">
+        <div id="logged_in">
+            <div id="nav-placeholder"></div>
+            <div class="main-content">
+                <section class="content-games">
+                    <div class="game-gallery"></div>
+                </section>
+            </div>
+
+            <div id="footer-placeholder"></div>
+        </div>
+        <div id="not-logged-in"></div>
+        <script src="assets/jquery.js"></script>
+        <script src="assets/script.js"></script>
+        <script>
+            if (localStorage.getItem('french_logged_in') === 'Nf9qNFv9wLTHdvWrvgI0Sb89Tyysbj6r') {
+                document.getElementById('logged_in').style.display = '';
+                document.getElementById('not-logged-in').style.display = 'none';
+            } else {
+                document.getElementById('logged_in').style.display = 'none';
+                document.getElementById('not-logged-in').style.display = '';
+                document.body.style.overflow = 'hidden';
+            }
+
+            //main js to show games and stuff
+            const games = [
+                { name: "Cookie Clicker", icon: "assets/icons/game-icons/cookie-clicker.png", directory: "/game1" },
+                { name: "Game 2", icon: "https://placehold.co/512?text=Game+2", directory: "/game2" },
+                { name: "Game 3", icon: "https://placehold.co/512?text=Game+3", directory: "/game3" },
+                // Add more games here...
+            ];
+
+            const gallery = document.querySelector(".game-gallery");
+
+            games.forEach(game => {
+                const item = document.createElement("div");
+                item.className = "game-item";
+                item.dataset.url = game.directory;
+
+                item.innerHTML = `
+      <a href="${game.directory}">
+        <img class="game-icon" src="${game.icon}" alt="${game.name}">
+      </a>
+      <img class="icon share-icon" src="assets/icons/share.png" alt="Share" title="Share">
+      <img class="icon tab-icon" src="assets/icons/tab.png" alt="Open in Tab" title="Open in new tab">
+    `;
+
+                gallery.appendChild(item);
+            });
+
+            // Share icon behavior
+            document.addEventListener("click", (e) => {
+                if (e.target.classList.contains("share-icon")) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const parent = e.target.closest(".game-item");
+                    const gameName = parent.querySelector(".game-icon").alt;
+                    const url = location.origin + parent.dataset.url;
+
+                    if (navigator.share) {
+                        navigator.share({
+                            title: gameName,
+                            text: `Check out this game: ${gameName}`,
+                            url: url
+                        }).catch((err) => {
+                            console.warn("Share failed:", err);
+                        });
+                    } else {
+                        // Fallback if Web Share API is not supported
+                        navigator.clipboard.writeText(url).then(() => {
+                            alert("Link copied to clipboard!");
+                        });
+                    }
+                }
+
+                if (e.target.classList.contains("tab-icon")) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const parent = e.target.closest(".game-item");
+                    const url = parent.dataset.url;
+
+                    const win = window.open("about:blank", "_blank");
+                    win.document.write(`<iframe src="${url}" style="border:0; width:100vw; height:100vh;"></iframe>`);
+                }
+            });
+        </script>
+</body>
+
+</html>
